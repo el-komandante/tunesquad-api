@@ -1,4 +1,3 @@
-import asyncio
 import json
 from aiohttp import web
 from app.music.search import search_soundcloud
@@ -25,5 +24,6 @@ async def search_handler(req):
         })
     return web.Response(
         status=200,
-        body=json.dumps(tracks)
+        body=json.dumps(tracks),
+        headers=headers
     )
