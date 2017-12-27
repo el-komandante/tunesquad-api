@@ -1,6 +1,6 @@
 import json
 from aiohttp import web
-from app.app import App
+from app.app import TuneSquad
 
 async def user_handler(req):
     if req.body_exists == False:
@@ -10,12 +10,12 @@ async def user_handler(req):
     body = await req.json()
     nickname = body.get('nickname')
     
-    if session_id not in App.sessions:
+    if session_id not in TuneSquad.sessions:
         return web.Response(status=404)
-    elif nickname in App.sessions[session_id].users:
+    elif nickname in TuneSquad.sessions[session_id].users:
         return web.Response(status=409)
     else:
-        App.sessions[session_id].new_user(nickname)
+        TuneSquad.sessions[session_id].new_user(nickname)
         return web.Response(
             status=200
         )

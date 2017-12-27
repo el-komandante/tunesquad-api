@@ -1,14 +1,14 @@
 import json
+from app.app import TuneSquad
 from aiohttp import web
-from app.app import App
 from app.music.get_track import get_track
 
 async def queue_handler(req):
     session_id = req.match_info['session_id']
 
-    if session_id not in App.sessions:
+    if session_id not in TuneSquad.sessions:
         return web.Response(status=404)
-
+    
     body = await req.json()
     nickname = body.get('nickname')
     track_id = body.get('track_id')
@@ -23,7 +23,10 @@ async def queue_handler(req):
         'duration': track.duration,
         'url': track.stream_url
     }
-
-    App.sessions[session_id].queue.put_nowait(stream)
+    if TuneSquad.sessions[session_id].queue.empty():
+        TuneSquad.sessions[session_id].queue.put_nowait(stream)
+        TuneSquad.sessions[session_id].play_music()
+    else:
+        TuneSquad.sessions[session_id].queue.put_nowait(stream)
 
     return web.Response(status=200)
