@@ -17,16 +17,14 @@ def set_cors_headers (request, response):
     response.headers['Access-Control-Allow-Credentials'] = 'true'
     return response
 
-@asyncio.coroutine
-def cors_factory (app, handler):
+async def cors_factory (app, handler):
 
-    @asyncio.coroutine
-    def cors_handler (request):
+    async def cors_handler (request):
         # preflight requests
         if request.method == 'OPTIONS':
             return set_cors_headers(request, web.Response())
         else:
-            response = yield from handler(request)
+            response = await handler(request)
             return set_cors_headers(request, response)
 
     return cors_handler
