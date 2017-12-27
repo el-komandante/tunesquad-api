@@ -4,8 +4,9 @@ from .session import sessions_handler
 from .queue import queue_handler
 from .user import user_handler
 from .websocket import websocket_handler
+from .cors import cors_factory
 
-app = web.Application()
+app = web.Application(middlewares=[cors_factory])
 
 # app.router.add_options()
 app.router.add_get('/search', search_handler)
