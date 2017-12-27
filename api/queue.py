@@ -8,7 +8,7 @@ async def queue_handler(req):
 
     if session_id not in App.sessions:
         return web.Response(status=404)
-
+    
     body = await req.json()
     nickname = body.get('nickname')
     track_id = body.get('track_id')
