@@ -23,7 +23,10 @@ async def queue_handler(req):
         'duration': track.duration,
         'url': track.stream_url
     }
-
-    App.sessions[session_id].queue.put_nowait(stream)
+    if App.sessions[session_id].queue.empty():
+        App.sessions[session_id].queue.put_nowait(stream)
+        App.sessions[session_id].play_music()
+    else:
+        App.sessions[session_id].queue.put_nowait(stream)
 
     return web.Response(status=200)

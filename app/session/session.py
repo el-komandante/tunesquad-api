@@ -13,11 +13,10 @@ class Session():
         else:
             self.users[nickname] = User(nickname, conn)
 
-    async def play_music(session_id):
-        my_session = App.sessions[session_id]
-        async for song in my_session.queue:
-            current_song = my_session.queue.deque
+    async def play_music():
+        async for song in self.queue:
+            current_song = self.queue.deque
             duration = current_song.duration
-            for user in my_session.users:
+            for user in self.users:
                 user.conn.send_str(current_song.url)
             time.sleep(duration/1000) #divide by 1000 bc duration comes in ms
