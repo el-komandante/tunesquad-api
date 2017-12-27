@@ -1,6 +1,6 @@
 import json
 from aiohttp import web
-from app.app import App
+from app.app import TuneSquad
 from app.session.new_session_id import new_session_id
 
 async def sessions_handler(req):
@@ -9,8 +9,7 @@ async def sessions_handler(req):
 
     session_id = new_session_id()
     
-    App.new_session(session_id)
-    App.sessions[session_id].new_user(nickname)
+    TuneSquad.new_session(session_id)
 
     res = json.dumps({'session_id': session_id})
 

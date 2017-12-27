@@ -1,5 +1,7 @@
 from datetime import datetime
+import time
 from queue import Queue
+from app.user.user import User
 
 class Session():
     def __init__(self):
@@ -11,11 +13,12 @@ class Session():
         if nickname in self.users:
             raise Exception(f'User with nickname {nickname} already exists.')
         else:
-            self.users[nickname] = User(nickname, conn)
+            new_user = User(nickname, conn)
+            self.users[nickname] = new_user
 
-    async def play_music():
-        async for song in self.queue:
-            current_song = self.queue.deque
+    async def play_music(self):
+        while True:
+            current_song = self.queue.get
             duration = current_song.duration
             for user in self.users:
                 user.conn.send_str(current_song.url)

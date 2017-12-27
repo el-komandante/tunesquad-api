@@ -10,10 +10,5 @@ app = web.Application()
 # app.router.add_options()
 app.router.add_get('/search', search_handler)
 app.router.add_post('/sessions', sessions_handler)
-app.router.add_put('/sessions/{session_id}', user_handler)
 app.router.add_put('/sessions/{session_id}/queue', queue_handler)
 app.router.add_get('/sessions/{session_id}/ws', websocket_handler)
-<<<<<<< HEAD
-
-=======
->>>>>>> 9f04e5d90bacd30fd7a7047a4eca0673023e980a

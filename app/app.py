@@ -10,4 +10,4 @@ class App():
             self.sessions[session_id] = Session()
 
 
-App = App()
+TuneSquad = App()
