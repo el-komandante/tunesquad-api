@@ -8,11 +8,9 @@ async def sessions_handler(req):
     nickname = body.get('nickname')
 
     session_id = new_session_id()
-    
     TuneSquad.new_session(session_id)
 
     res = json.dumps({'session_id': session_id})
-
     return web.Response(
         status=200,
         body=res
